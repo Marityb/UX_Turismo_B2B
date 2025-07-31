@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Visual: Usabilidad en Plataformas de Viajes B2B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .tab-active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            border-bottom-color: transparent;
+            color: #6b7280;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .journey-step {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .journey-step:hover {
+            background-color: #e0f2fe;
+        }
+        .journey-step.active {
+             background-color: #bfdbfe;
+             border-left-color: #3b82f6;
+        }
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .has-tooltip:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Informe Visual Interactivo</h1>
+            <p class="text-lg text-gray-600 mt-2">Usabilidad en Plataformas de Viajes B2B (Análisis 2025)</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="border-b border-gray-200 mb-8">
+            <nav class="flex flex-wrap -mb-px" aria-label="Tabs">
+                <button onclick="changeTab(event, 'ecosistema')" class="tab-btn tab-active w-full sm:w-auto text-center border-b-2 py-4 px-1 text-sm font-medium">
+                    Ecosistema de Plataformas
+                </button>
+                <button onclick="changeTab(event, 'viaje-agente')" class="tab-btn tab-inactive w-full sm:w-auto text-center border-b-2 py-4 px-1 text-sm font-medium">
+                    El Viaje del Agente
+                </button>
+                <button onclick="changeTab(event, 'evaluador')" class="tab-btn tab-inactive w-full sm:w-auto text-center border-b-2 py-4 px-1 text-sm font-medium">
+                    Evaluador Heurístico
+                </button>
+                <button onclick="changeTab(event, 'cliente')" class="tab-btn tab-inactive w-full sm:w-auto text-center border-b-2 py-4 px-1 text-sm font-medium">
+                    ¿Qué Busca tu Cliente?
+                </button>
+            </nav>
+        </div>
+
+        <!-- Sections -->
+        <main>
+            <!-- Section 1: Ecosistema de Plataformas -->
+            <div id="ecosistema" class="section active">
+                <h2 class="text-2xl font-bold text-gray-700 mb-6 text-center">Ecosistema de Plataformas B2B</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Global Leaders -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4 text-center">Líderes Globales</h3>
+                        <div class="space-y-4">
+                            <div class="card bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg text-gray-800">TravelPerk</h4>
+                                <p class="text-sm text-gray-600">Gestión de viajes corporativos "todo en uno" con foco en la simplicidad y experiencia de usuario.</p>
+                            </div>
+                            <div class="card bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg text-gray-800">SAP Concur</h4>
+                                <p class="text-sm text-gray-600">Sistema integrado de gestión de viajes, gastos y facturas para grandes corporaciones.</p>
+                            </div>
+                            <div class="card bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg text-gray-800">Hotelbeds (Bedsonline)</h4>
+                                <p class="text-sm text-gray-600">"Banco de camas" y mercado masivo de productos de viaje para que las agencias revendan.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Local Players -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-green-600 mb-4 text-center">Actores Clave en Argentina</h3>
+                        <div class="space-y-4">
+                            <div class="card bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg text-gray-800">HotelDO</h4>
+                                <p class="text-sm text-gray-600">Plataforma B2B líder en América Latina (del Grupo Despegar) con fuerte inventario regional.</p>
+                            </div>
+                            <div class="card bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg text-gray-800">Civitatis</h4>
+                                <p class="text-sm text-gray-600">Distribuidor global líder de tours, actividades y excursiones en español para agencias.</p>
+                            </div>
+                            <div class="card bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg text-gray-800">Enjoy Travel Group</h4>
+                                <p class="text-sm text-gray-600">Operador mayorista y receptivo con enfoque 100% B2B y desarrollo de producto local.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: El Viaje del Agente -->
+            <div id="viaje-agente" class="section">
+                <h2 class="text-2xl font-bold text-gray-700 mb-6 text-center">El Viaje del Agente: Flujo de Trabajo Digital</h2>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="lg:w-1/3">
+                        <div id="journey-steps-container" class="space-y-2">
+                            <!-- Steps will be injected by JS -->
+                        </div>
+                    </div>
+                    <div class="lg:w-2/3 bg-white p-6 rounded-lg shadow-md min-h-[300px]">
+                        <div id="journey-details-container">
+                            <!-- Details will be injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Evaluador Heurístico -->
+            <div id="evaluador" class="section">
+                <h2 class="text-2xl font-bold text-gray-700 mb-2 text-center">Evaluador Heurístico de Usabilidad</h2>
+                <p class="text-center text-gray-500 mb-6">Basado en los 10 principios de Jakob Nielsen.</p>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="max-w-xs mx-auto mb-6">
+                        <label for="platform-select" class="block text-sm font-medium text-gray-700 mb-1">Selecciona una plataforma:</label>
+                        <select id="platform-select" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <!-- Options will be injected by JS -->
+                        </select>
+                    </div>
+                    <div class="relative h-[300px] sm:h-[400px] md:h-[500px] w-full">
+                        <canvas id="heuristic-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: ¿Qué Busca tu Cliente? -->
+            <div id="cliente" class="section">
+                <h2 class="text-2xl font-bold text-gray-700 mb-6 text-center">¿Qué Busca tu Cliente? La Agencia de Viajes</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Matriz de Priorización Estratégica</h3>
+                    <p class="text-sm text-gray-600 mb-6">Elementos clave que una agencia de viajes valora al encargar un servicio web, ponderados por su impacto en el negocio.</p>
+                    <ul id="priority-list" class="space-y-3">
+                       <!-- Priority items will be injected by JS -->
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- Data ---
+        const journeyData = [
+            {
+                phase: 'Fase 1: Descubrimiento e Investigación',
+                objective: 'Comprender las necesidades del cliente y encontrar productos adecuados (vuelos, hoteles, etc.).',
+                touchpoints: ['Panel de control', 'Búsqueda avanzada', 'Filtros', 'Vistas de mapa'],
+                actions: ['Interpretar solicitud', 'Introducir parámetros', 'Aplicar filtros complejos', 'Explorar resultados'],
+                needs: ['Búsqueda potente y flexible', 'Información clara y completa', 'Visuales de alta calidad', 'Fiabilidad de inventario']
+            },
+            {
+                phase: 'Fase 2: Comparación y Cotización',
+                objective: 'Comparar opciones, construir un itinerario y generar una cotización profesional.',
+                touchpoints: ['Herramientas de comparación', 'Constructor de itinerarios', 'Generador de cotizaciones', 'Desglose de precios'],
+                actions: ['Seleccionar productos', 'Ver comparaciones', 'Combinar servicios', 'Calcular precio final y comisión'],
+                needs: ['Comparación fácil de opciones', 'Precios transparentes', 'Herramientas para crear documentos profesionales']
+            },
+            {
+                phase: 'Fase 3: Reserva y Confirmación',
+                objective: 'Asegurar los productos seleccionados para el cliente de manera eficiente y precisa.',
+                touchpoints: ['Formulario de reserva', 'Pasarela de pago', 'Pantalla de confirmación', 'Generación de vouchers'],
+                actions: ['Introducir datos del viajero', 'Aplicar método de pago', 'Confirmar políticas', 'Recibir confirmación instantánea'],
+                needs: ['Flujo de reserva sin fricciones', 'Soporte para pagos locales', 'Confirmación en tiempo real']
+            },
+            {
+                phase: 'Fase 4: Gestión Post-Venta y Soporte',
+                objective: 'Gestionar reservas existentes (modificaciones, cancelaciones) y acceder a soporte.',
+                touchpoints: ['Panel "Mis Reservas"', 'Flujos de modificación/cancelación', 'Canales de soporte (chat, teléfono)', 'Herramientas de informes'],
+                actions: ['Acceder a una reserva', 'Iniciar cambio o cancelación', 'Contactar a soporte', 'Generar informes de ventas'],
+                needs: ['Acceso fácil a reservas', 'Procesos de cambio claros', 'Soporte receptivo 24/7']
+            }
+        ];
+
+        const heuristicData = {
+            'TravelPerk': {
+                label: 'TravelPerk',
+                data: [4, 4, 5, 4, 4, 4, 4, 5, 4, 5], // Excelente=5, Bueno=4, Aceptable=3
+                borderColor: 'rgba(59, 130, 246, 1)',
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            },
+            'SAP Concur': {
+                label: 'SAP Concur',
+                data: [4, 4, 5, 4, 5, 3, 5, 3, 5, 5],
+                borderColor: 'rgba(239, 68, 68, 1)',
+                backgroundColor: 'rgba(239, 68, 68, 0.2)',
+            },
+            'Hotelbeds': {
+                label: 'Hotelbeds',
+                data: [5, 5, 4, 4, 4, 4, 4, 4, 4, 4],
+                borderColor: 'rgba(249, 115, 22, 1)',
+                backgroundColor: 'rgba(249, 115, 22, 0.2)',
+            },
+            'HotelDO': {
+                label: 'HotelDO',
+                data: [5, 5, 4, 4, 4, 3, 3, 4, 4, 4],
+                borderColor: 'rgba(16, 185, 129, 1)',
+                backgroundColor: 'rgba(16, 185, 129, 0.2)',
+            },
+            'Civitatis': {
+                label: 'Civitatis',
+                data: [4, 5, 5, 4, 5, 5, 3, 5, 4, 4],
+                borderColor: 'rgba(168, 85, 247, 1)',
+                backgroundColor: 'rgba(168, 85, 247, 0.2)',
+            },
+            'Enjoy Travel Group': {
+                label: 'Enjoy Travel Group',
+                data: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+                borderColor: 'rgba(234, 179, 8, 1)',
+                backgroundColor: 'rgba(234, 179, 8, 0.2)',
+            }
+        };
+        
+        const priorityData = [
+            { title: 'Motor de Reservas en Línea', score: 9.6, justification: 'Genera ingresos 24/7 y reduce drásticamente la carga administrativa. Es el núcleo funcional para la conversión.' },
+            { title: 'Optimización SEO', score: 9.5, justification: 'Impulsa directamente la generación de leads y construye visibilidad a largo plazo, lo que se traduce en un ROI medible.' },
+            { title: 'Aumento de la Tasa de Conversión', score: 9.4, justification: 'Es el resultado medible más directamente vinculado a la rentabilidad y al éxito del diseño de la interfaz.' },
+            { title: 'Aumento de Ventas/Reservas', score: 9.3, justification: 'El objetivo final y la principal métrica de éxito para el cliente. Valida toda la inversión.' },
+            { title: 'Módulo de Gestión de Agentes B2B', score: 9.0, justification: 'Clave para la eficiencia operativa en agencias mayoristas, permitiendo escalar el negocio y gestionar comisiones sin errores.' },
+            { title: 'Integración con Proveedores (API)', score: 8.8, justification: 'Amplía la oferta de productos y automatiza procesos, lo que impacta tanto en los ingresos como en la eficiencia.' },
+            { title: 'Diseño Profesional y de Marca', score: 8.5, justification: 'Fundamental para construir credibilidad y confianza, lo que indirectamente impulsa las conversiones.' },
+            { title: 'ROI Positivo', score: 8.3, justification: 'Métrica de validación holística que combina ingresos, eficiencia y valor a largo plazo.' },
+            { title: 'Experiencia Móvil Óptima', score: 8.2, justification: 'Esencial para la percepción de la marca y para captar clientes sobre la marcha.' },
+            { title: 'Gestión de Proyectos "Llave en Mano"', score: 7.8, justification: 'Una expectativa de servicio crucial que reduce la fricción del cliente y genera confianza.' },
+            { title: 'Soporte Post-Lanzamiento', score: 7.5, justification: 'Garantiza la sostenibilidad a largo plazo de la inversión y refuerza la confianza en el proveedor.' },
+        ];
+
+
+        // --- Global Variables ---
+        let heuristicChart;
+
+        // --- Functions ---
+        function changeTab(event, sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            event.currentTarget.classList.add('tab-active');
+            event.currentTarget.classList.remove('tab-inactive');
+        }
+
+        function changeJourneyStep(index) {
+            const stepsContainer = document.getElementById('journey-steps-container');
+            const detailsContainer = document.getElementById('journey-details-container');
+            const data = journeyData[index];
+
+            // Update active state for steps
+            Array.from(stepsContainer.children).forEach((step, i) => {
+                if (i === index) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+
+            // Update details
+            detailsContainer.innerHTML = `
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">${data.phase}</h3>
+                <p class="text-gray-600 mb-6">${data.objective}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-2 flex items-center"><i data-lucide="mouse-pointer-click" class="w-4 h-4 mr-2 text-blue-500"></i>Puntos de Contacto</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">${data.touchpoints.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-2 flex items-center"><i data-lucide="user-check" class="w-4 h-4 mr-2 text-green-500"></i>Acciones del Agente</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">${data.actions.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <h4 class="font-semibold text-gray-700 mb-2 flex items-center"><i data-lucide="key-round" class="w-4 h-4 mr-2 text-yellow-500"></i>Necesidades Críticas</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">${data.needs.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+        
+        function getScoreColor(score) {
+            if (score >= 9.5) return 'bg-blue-500';
+            if (score >= 9.0) return 'bg-green-500';
+            if (score >= 8.5) return 'bg-yellow-500';
+            if (score >= 8.0) return 'bg-orange-500';
+            return 'bg-red-500';
+        }
+
+        function initJourney() {
+            const stepsContainer = document.getElementById('journey-steps-container');
+            stepsContainer.innerHTML = journeyData.map((item, index) => `
+                <div onclick="changeJourneyStep(${index})" class="journey-step border-l-4 border-transparent p-4 rounded-r-lg">
+                    <p class="font-semibold text-gray-700">${item.phase}</p>
+                </div>
+            `).join('');
+            changeJourneyStep(0);
+        }
+
+        function initHeuristicChart() {
+            const ctx = document.getElementById('heuristic-chart').getContext('2d');
+            const select = document.getElementById('platform-select');
+            
+            // Populate select options
+            Object.keys(heuristicData).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = heuristicData[key].label;
+                select.appendChild(option);
+            });
+
+            const chartConfig = {
+                type: 'radar',
+                data: {
+                    labels: [
+                        '1. Visibilidad Estado',
+                        '2. Mundo Real',
+                        '3. Control Usuario',
+                        '4. Consistencia',
+                        '5. Prevenir Errores',
+                        '6. Reconocer > Recordar',
+                        '7. Flexibilidad',
+                        '8. Diseño Minimalista',
+                        '9. Ayuda en Errores',
+                        '10. Documentación'
+                    ],
+                    datasets: [heuristicData.TravelPerk]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: '#e5e7eb'
+                            },
+                            grid: {
+                                color: '#e5e7eb'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 10
+                                },
+                                color: '#4b5563'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                max: 5,
+                                min: 0,
+                                stepSize: 1,
+                                backdropColor: 'rgba(255, 255, 255, 0.75)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        const valueMap = {5: 'Excelente', 4: 'Bueno', 3: 'Aceptable', 2: 'Malo', 1: 'Pobre'};
+                                        label += `${context.parsed.r} (${valueMap[context.parsed.r] || 'N/A'})`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            heuristicChart = new Chart(ctx, chartConfig);
+
+            select.addEventListener('change', (e) => {
+                const selectedPlatform = e.target.value;
+                heuristicChart.data.datasets = [heuristicData[selectedPlatform]];
+                heuristicChart.update();
+            });
+        }
+        
+        function initPriorityList() {
+            const listContainer = document.getElementById('priority-list');
+            listContainer.innerHTML = priorityData.map(item => `
+                <li class="has-tooltip relative border border-gray-200 p-4 rounded-lg hover:bg-gray-50">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium text-gray-700">${item.title}</span>
+                        <span class="text-sm font-bold text-white px-3 py-1 rounded-full ${getScoreColor(item.score)}">${item.score.toFixed(1)}</span>
+                    </div>
+                    <div class="tooltip absolute z-10 w-64 p-2 -mt-1 text-sm text-white bg-gray-900 rounded-lg shadow-lg -top-full left-1/2 -translate-x-1/2">
+                        ${item.justification}
+                        <svg class="absolute text-gray-900 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        // --- Initialization ---
+        window.onload = function() {
+            lucide.createIcons();
+            initJourney();
+            initHeuristicChart();
+            initPriorityList();
+        };
+    </script>
+</body>
+</html>
